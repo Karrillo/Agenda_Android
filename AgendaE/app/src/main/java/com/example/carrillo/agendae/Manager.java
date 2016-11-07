@@ -77,7 +77,7 @@ public class DataBaseManager {
      * @param notas
      * @return
      */
-    public ContentValues columnas(Notas notas) {
+    public ContentValues colunas(Notas notas) {
         ContentValues values = new ContentValues();
         values.put(NotasDBOpenHelper.CN_TITLE, notas.getTitulo());
         values.put(NotasDBOpenHelper.CN_CONTEND, notas.getDescripcion());
