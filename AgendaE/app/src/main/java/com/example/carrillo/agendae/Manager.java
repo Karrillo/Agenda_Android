@@ -77,7 +77,7 @@ public class DataBaseManager {
      * @param notas
      * @return
      */
-    public ContentValues colunas(Notas notas) {
+    public ContentValues columnas(Notas notas) {
         ContentValues values = new ContentValues();
         values.put(NotasDBOpenHelper.CN_TITLE, notas.getTitulo());
         values.put(NotasDBOpenHelper.CN_CONTEND, notas.getDescripcion());
@@ -86,5 +86,23 @@ public class DataBaseManager {
         return values;
     }
 
+    /**
+     * Borra una nota
+     *
+     * @param id
+     */
+    public void delete(long id) {
+        database.delete(NotasDBOpenHelper.TABLE_NAME, NotasDBOpenHelper.CN_ID + " = ?", new String[]{Long.toString(id)});
+    }
 
+    /**
+     * Retorna la lista de notas segun el buscador
+     *
+     * @return
+     */
+    public List<Notas> buscarNotas(String titulo) {
+        Cursor cursor = database.query(NotasDBOpenHelper.TABLE_NAME, allColumns, NotasDBOpenHelper.CN_TITLE + " like   ? ", new String[]{titulo + "%"}, null, null, null);
+        List<Notas> notas = cursorLista(cursor);
+        return notas;
+    }
 }
