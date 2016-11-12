@@ -119,7 +119,7 @@ public class DataBaseManager {
      * @param cursor
      * @return
      */
-    public List<Notas> cursorLista(Cursor cursor) {
+    public List<Notas> cusorLista(Cursor cursor) {
         List<Notas> notas = new ArrayList<Notas>();
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
