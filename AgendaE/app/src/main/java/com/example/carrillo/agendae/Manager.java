@@ -104,5 +104,34 @@ public class DataBaseManager {
         Cursor cursor = database.query(NotasDBOpenHelper.TABLE_NAME, allColumns, NotasDBOpenHelper.CN_TITLE + " like   ? ", new String[]{titulo + "%"}, null, null, null);
         List<Notas> notas = cursorLista(cursor);
         return notas;
+    }/**
+     * Retorna toda la lista de notas
+     *
+     * @return
+     */
+    public List<Notas> todasNotas() {
+        Cursor cursor = database.query(NotasDBOpenHelper.TABLE_NAME, allColumns, null, null, null, null, "Fecha ASC");
+        List<Notas> notas = cursorLista(cursor);
+        return notas;
+    }
+
+    /**
+     * @param cursor
+     * @return
+     */
+    public List<Notas> cursorLista(Cursor cursor) {
+        List<Notas> notas = new ArrayList<Notas>();
+        if (cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                Notas nota = new Notas();
+                nota.setId(cursor.getLong(cursor.getColumnIndex(NotasDBOpenHelper.CN_ID)));
+                nota.setTitulo(cursor.getString(cursor.getColumnIndex(NotasDBOpenHelper.CN_TITLE)));
+                nota.setDescripcion(cursor.getString(cursor.getColumnIndex(NotasDBOpenHelper.CN_CONTEND)));
+                nota.setHora(cursor.getString(cursor.getColumnIndex(NotasDBOpenHelper.CN_HOUR)));
+                nota.setLugar(cursor.getString(cursor.getColumnIndex(NotasDBOpenHelper.CN_PLACE)));
+                notas.add(nota);
+            }
+        }
+        return notas;
     }
 }
